@@ -12,10 +12,12 @@ jobs:
     steps:
       - name: 'Checkout Repository'
         uses: actions/checkout@v4
+
+      # See https://github.com/gradle/actions/tree/main/setup-gradle
       - name: Run snapshot action
         uses: gradle/actions/setup-gradle@v3
         with:
-          dependency-graph: generate-and-upload
+          dependency-graph: generate-and-submit
           dependency-graph-continue-on-failure: false
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v4
