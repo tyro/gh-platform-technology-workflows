@@ -13,10 +13,10 @@ jobs:
       - name: 'Checkout Repository'
         uses: actions/checkout@v4
       - name: Run snapshot action
-        uses: mikepenz/gradle-dependency-submission@latest
+        uses: gradle/actions/setup-gradle@v3
         with:
-          gradle-project-path: "."
-          gradle-build-module: ":"
+          dependency-graph: generate-and-upload
+          dependency-graph-continue-on-failure: false
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v4
         env:
