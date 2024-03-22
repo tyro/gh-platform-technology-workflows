@@ -19,6 +19,8 @@ jobs:
         with:
           dependency-graph: generate-and-submit
           dependency-graph-continue-on-failure: false
+      - name: Run all checks, disabling dependency graph generation
+        run: ./gradlew :assemble
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v4
         env:
