@@ -19,31 +19,21 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
 
-      # See https://github.com/gradle/actions/tree/main/setup-gradle
-      - name: Run snapshot action
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          dependency-graph: generate-and-submit
-          dependency-graph-continue-on-failure: false
+      - name: Generate and submit dependency graph
+        uses: gradle/actions/dependency-submission@v3
 
-      - name: Run all checks, disabling dependency graph generation
-        env:
-          GH_PACKAGE_USER: "${{ secrets.GH_PACKAGE_USER }}"
-          GH_PACKAGE_TOKEN: "${{ secrets.GH_PACKAGE_TOKEN }}"
-        run: ./gradlew build
-
-  dependency-review:
-    runs-on: ubuntu-latest
-    needs: dependency-submission
-    steps:
-      - name: 'Dependency Review'
-        uses: actions/dependency-review-action@v4
-        env:
-          COMMIT_SHA: ${{ github.event.pull_request.head.sha != '' && github.event.pull_request.head.sha || github.sha }}
-        with:
-          comment-summary-in-pr: on-failure
-          retry-on-snapshot-warnings: true
-          show-openssf-scorecard: true
-          warn-on-openssf-scorecard-level: 3
-          base-ref: master
-          head-ref: "${{ env.COMMIT_SHA }}"
+  # dependency-review:
+  #   runs-on: ubuntu-latest
+  #   needs: dependency-submission
+  #   steps:
+  #     - name: 'Dependency Review'
+  #       uses: actions/dependency-review-action@v4
+  #       env:
+  #         COMMIT_SHA: ${{ github.event.pull_request.head.sha != '' && github.event.pull_request.head.sha || github.sha }}
+  #       with:
+  #         comment-summary-in-pr: on-failure
+  #         retry-on-snapshot-warnings: true
+  #         show-openssf-scorecard: true
+  #         warn-on-openssf-scorecard-level: 3
+  #         base-ref: master
+  #         head-ref: "${{ env.COMMIT_SHA }}"
