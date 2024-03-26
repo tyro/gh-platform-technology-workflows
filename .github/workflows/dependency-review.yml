@@ -27,6 +27,9 @@ jobs:
           dependency-graph-continue-on-failure: false
 
       - name: Run all checks, disabling dependency graph generation
+        env:
+          GH_PACKAGE_USER: "${{ secrets.GH_PACKAGE_USER }}"
+          GH_PACKAGE_TOKEN: "${{ secrets.GH_PACKAGE_TOKEN }}"
         run: ./gradlew build
 
       - name: 'Dependency Review'
