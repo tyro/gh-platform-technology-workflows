@@ -30,7 +30,7 @@ jobs:
         env:
           GH_PACKAGE_USER: "${{ secrets.GH_PACKAGE_USER }}"
           GH_PACKAGE_TOKEN: "${{ secrets.GH_PACKAGE_TOKEN }}"
-        run: ./gradlew build
+        run: ./gradlew :dependencies
 
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v4
