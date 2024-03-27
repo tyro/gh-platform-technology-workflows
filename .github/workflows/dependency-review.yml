@@ -32,6 +32,9 @@ jobs:
           GH_PACKAGE_TOKEN: "${{ secrets.GH_PACKAGE_TOKEN }}"
         run: ./gradlew build
 
+      # Dependency review needs to be performed in the same job to prevent all
+      # dependencies from being seen as new in a pull request
+      # https://github.com/actions/dependency-review-action/issues/699
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v4
         env:
