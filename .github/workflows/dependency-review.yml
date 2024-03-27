@@ -28,11 +28,11 @@ jobs:
           dependency-graph: generate-and-upload
           dependency-graph-continue-on-failure: false
 
-      # - name: Run the usual CI build (dependency-graph will be generated and submitted post-job)
-      #   env:
-      #     GH_PACKAGE_USER: "${{ secrets.GH_PACKAGE_USER }}"
-      #     GH_PACKAGE_TOKEN: "${{ secrets.GH_PACKAGE_TOKEN }}"
-      #   run: ./gradlew build
+      - name: Run the usual CI build (dependency-graph will be generated and submitted post-job)
+        env:
+          GH_PACKAGE_USER: "${{ secrets.GH_PACKAGE_USER }}"
+          GH_PACKAGE_TOKEN: "${{ secrets.GH_PACKAGE_TOKEN }}"
+        run: ./gradlew build
 
   dependency-review:
     runs-on: ubuntu-latest
