@@ -19,6 +19,8 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
 
+      # Dependency submission only occurs as part of the post action step so
+      # the review must be executed in a separate job.
       - name: Setup Gradle to generate and submit dependency graphs
         uses: gradle/actions/setup-gradle@v3
         with:
