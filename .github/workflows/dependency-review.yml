@@ -28,11 +28,18 @@ jobs:
           dependency-graph: generate-and-submit
           dependency-graph-continue-on-failure: false
 
+      - uses: yumemi-inc/gradle-dependency-diff-report@v2
+        env:
+          GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+        with:
+          modules: 'app'
+          configuration: 'releaseRuntimeClasspath'
+
       - name: Run the usual CI build (dependency-graph will be generated and submitted post-job)
         env:
           GH_PACKAGE_USER: "${{ secrets.GH_PACKAGE_USER }}"
           GH_PACKAGE_TOKEN: "${{ secrets.GH_PACKAGE_TOKEN }}"
-        run: ./gradlew :dependencies
+        run: ./gradlew build
 
   dependency-review:
     runs-on: ubuntu-latest
