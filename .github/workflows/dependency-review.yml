@@ -25,7 +25,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: 8.7
-          dependency-graph: generate-and-submit
+          dependency-graph: generate-and-upload
           dependency-graph-continue-on-failure: false
 
       # - name: Run the usual CI build (dependency-graph will be generated and submitted post-job)
