@@ -40,7 +40,7 @@ jobs:
         env:
           COMMIT_SHA: ${{ github.event.pull_request.head.sha != '' && github.event.pull_request.head.sha || github.sha }}
         with:
-          comment-summary-in-pr: on-failure
+          comment-summary-in-pr: always
           retry-on-snapshot-warnings: true
           retry-on-snapshot-warnings-timeout: 300
           show-openssf-scorecard: true
