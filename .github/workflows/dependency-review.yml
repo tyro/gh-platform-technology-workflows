@@ -32,13 +32,6 @@ jobs:
           GH_PACKAGE_TOKEN: "${{ secrets.GH_PACKAGE_TOKEN }}"
         run: ./gradlew build
 
-      # - name: Generate and submit dependency graph
-      #   uses: gradle/actions/dependency-submission@v3
-
-  dependency-review:
-    runs-on: ubuntu-latest
-    needs: dependency-submission
-    steps:
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v4
         env:
@@ -46,7 +39,25 @@ jobs:
         with:
           comment-summary-in-pr: on-failure
           retry-on-snapshot-warnings: true
+          retry-on-snapshot-warnings-timeout: 300
           show-openssf-scorecard: true
           warn-on-openssf-scorecard-level: 3
           base-ref: master
           head-ref: "${{ env.COMMIT_SHA }}"
+
+  # dependency-review:
+  #   runs-on: ubuntu-latest
+  #   needs: dependency-submission
+  #   steps:
+  #     - name: 'Dependency Review'
+  #       uses: actions/dependency-review-action@v4
+  #       env:
+  #         COMMIT_SHA: ${{ github.event.pull_request.head.sha != '' && github.event.pull_request.head.sha || github.sha }}
+  #       with:
+  #         comment-summary-in-pr: on-failure
+  #         retry-on-snapshot-warnings: true
+  #         retry-on-snapshot-warnings-timeout: 300
+  #         show-openssf-scorecard: true
+  #         warn-on-openssf-scorecard-level: 3
+  #         base-ref: master
+  #         head-ref: "${{ env.COMMIT_SHA }}"
