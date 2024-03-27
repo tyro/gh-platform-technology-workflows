@@ -33,7 +33,7 @@ jobs:
           GITHUB_DEPENDENCY_GRAPH_ENABLED: false
         with:
           modules: 'app'
-          configuration: 'releaseRuntimeClasspath'
+          configuration: 'devDebugCompileClasspath'
 
       - name: Run the usual CI build (dependency-graph will be generated and submitted post-job)
         env:
