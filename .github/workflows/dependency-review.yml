@@ -52,7 +52,6 @@ jobs:
         with:
           comment-summary-in-pr: on-failure
           retry-on-snapshot-warnings: true
-          retry-on-snapshot-warnings-timeout: 300
           show-openssf-scorecard: true
           warn-on-openssf-scorecard-level: 3
           base-ref: master
