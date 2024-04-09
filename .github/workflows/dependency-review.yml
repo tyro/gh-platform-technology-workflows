@@ -33,18 +33,25 @@ jobs:
   submission:
     runs-on: ubuntu-latest
     steps:
-      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission@add-dependency-review
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+
+      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/gradle@add-dependency-review
+        if: ${{ inputs.build-tool }} == 'gradle'
         with:
           build-tool: ${{ inputs.build-tool }}
-          swift-version: ${{ inputs.swift-version }}
           java-version: ${{ inputs.java-version }}
           java-distro: ${{ inputs.java-distro }}
           gradle-version: ${{ inputs.gradle-version }}
           gh-package-user: "${{ secrets.GH_PACKAGE_USER }}"
           gh-package-token: "${{ secrets.GH_PACKAGE_TOKEN }}"
+
+      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/swift@add-dependency-review
+        if: ${{ inputs.build-tool }} == 'swift'
+        with:
+          swift-version: ${{ inputs.swift-version }}
   analysis:
     needs: submission
     runs-on: ubuntu-latest
     steps:
       - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/review@add-dependency-review
-
