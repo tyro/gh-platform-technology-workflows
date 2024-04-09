@@ -37,9 +37,8 @@ jobs:
         uses: actions/checkout@v4
 
       - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/gradle@add-dependency-review
-        if: ${{ inputs.build-tool }} == 'gradle'
+        if: ${{ inputs.build-tool == 'gradle' }}
         with:
-          build-tool: ${{ inputs.build-tool }}
           java-version: ${{ inputs.java-version }}
           java-distro: ${{ inputs.java-distro }}
           gradle-version: ${{ inputs.gradle-version }}
@@ -47,9 +46,10 @@ jobs:
           gh-package-token: "${{ secrets.GH_PACKAGE_TOKEN }}"
 
       - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/swift@add-dependency-review
-        if: ${{ inputs.build-tool }} == 'swift'
+        if: ${{ inputs.build-tool == 'swift' }}
         with:
           swift-version: ${{ inputs.swift-version }}
+
   analysis:
     needs: submission
     runs-on: ubuntu-latest
