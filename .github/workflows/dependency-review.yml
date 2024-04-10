@@ -1,0 +1,56 @@
+name: 'Dependency Review'
+on:
+  workflow_call:
+    inputs:
+      build-tool:
+        required: true
+        type: string
+      java-version:
+        required: false
+        type: string
+        default: '17'
+      java-distro:
+        description: 'Java distribution'
+        required: false
+        type: string
+        default: 'corretto'
+      gradle-version:
+        description: 'Gradle version'
+        required: false
+        type: number
+        default: 8.7
+      swift-version:
+        description: 'swift version'
+        required: false
+        type: string
+        default: 'latest'
+
+permissions:
+  contents: write
+
+jobs:
+  submission:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+
+      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/gradle@master
+        if: ${{ inputs.build-tool == 'gradle' }}
+        with:
+          java-version: ${{ inputs.java-version }}
+          java-distro: ${{ inputs.java-distro }}
+          gradle-version: ${{ inputs.gradle-version }}
+          gh-package-user: "${{ secrets.GH_PACKAGE_USER }}"
+          gh-package-token: "${{ secrets.GH_PACKAGE_TOKEN }}"
+
+      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/swift@master
+        if: ${{ inputs.build-tool == 'swift' }}
+        with:
+          swift-version: ${{ inputs.swift-version }}
+
+  analysis:
+    needs: submission
+    runs-on: ubuntu-latest
+    steps:
+      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/review@add-dependency-review
