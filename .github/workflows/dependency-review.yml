@@ -49,8 +49,12 @@ jobs:
         with:
           swift-version: ${{ inputs.swift-version }}
 
+      - name: 'Skipping dependency submission'
+        run: echo 'Skipping as transitive dependencies are discoverable out of box'
+        if: ${{ inputs.build-tool == 'npm' }}
+
   analysis:
     needs: submission
     runs-on: ubuntu-latest
     steps:
-      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/review@add-dependency-review
+      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/review@master
