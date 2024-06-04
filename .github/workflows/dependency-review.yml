@@ -35,7 +35,7 @@ jobs:
       - name: 'Checkout Repository'
         uses: actions/checkout@v4
 
-      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/gradle@master
+      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/gradle@main
         if: ${{ inputs.build-tool == 'gradle' }}
         with:
           java-version: ${{ inputs.java-version }}
@@ -44,7 +44,7 @@ jobs:
           gh-package-user: "${{ secrets.GH_PACKAGE_USER }}"
           gh-package-token: "${{ secrets.GH_PACKAGE_TOKEN }}"
 
-      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/swift@master
+      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/swift@main
         if: ${{ inputs.build-tool == 'swift' }}
         with:
           swift-version: ${{ inputs.swift-version }}
@@ -57,4 +57,4 @@ jobs:
     needs: submission
     runs-on: ubuntu-latest
     steps:
-      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/review@master
+      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/review@main
