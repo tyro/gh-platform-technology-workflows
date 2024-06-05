@@ -19,6 +19,11 @@ on:
         required: false
         type: number
         default: 8.7
+      gradle-module:
+        description: 'Module to generate the dependency diff report for'
+        required: false
+        type: string
+        default: 'app'
       swift-version:
         description: 'swift version'
         required: false
@@ -41,6 +46,7 @@ jobs:
           java-version: ${{ inputs.java-version }}
           java-distro: ${{ inputs.java-distro }}
           gradle-version: ${{ inputs.gradle-version }}
+          module: ${{ inputs.gradle-module }}
           gh-package-user: "${{ secrets.GH_PACKAGE_USER }}"
           gh-package-token: "${{ secrets.GH_PACKAGE_TOKEN }}"
 
