@@ -46,7 +46,7 @@ jobs:
           java-version: ${{ inputs.java-version }}
           java-distro: ${{ inputs.java-distro }}
           gradle-version: ${{ inputs.gradle-version }}
-          module: ${{ inputs.gradle-module }}
+          gradle-module: ${{ inputs.gradle-module }}
           gh-package-user: "${{ secrets.GH_PACKAGE_USER }}"
           gh-package-token: "${{ secrets.GH_PACKAGE_TOKEN }}"
 
