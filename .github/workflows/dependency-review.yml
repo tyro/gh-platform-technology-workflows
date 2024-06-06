@@ -24,6 +24,11 @@ on:
         required: false
         type: string
         default: 'app'
+      gradle-configuration:
+        description: 'Classpath to generate the dependency diff report'
+        required: false
+        type: string
+        default: 'devDebugCompileClasspath'
       swift-version:
         description: 'swift version'
         required: false
@@ -47,6 +52,7 @@ jobs:
           java-distro: ${{ inputs.java-distro }}
           gradle-version: ${{ inputs.gradle-version }}
           gradle-module: ${{ inputs.gradle-module }}
+          gradle-configuration: ${{ inputs.gradle-configuration }}
           gh-package-user: "${{ secrets.GH_PACKAGE_USER }}"
           gh-package-token: "${{ secrets.GH_PACKAGE_TOKEN }}"
 
