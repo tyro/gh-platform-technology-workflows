@@ -61,7 +61,7 @@ jobs:
         with:
           swift-version: ${{ inputs.swift-version }}
 
-      - name: 'Skipping dependency submission'
+      - name: 'Checking if NPM dependency submission'
         run: echo 'Skipping as transitive dependencies are discoverable out of box'
         if: ${{ inputs.build-tool == 'npm' }}
 
