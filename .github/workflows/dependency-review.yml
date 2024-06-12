@@ -45,7 +45,7 @@ jobs:
       - name: 'Checkout Repository'
         uses: actions/checkout@v4
 
-      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/gradle@support-module-input
+      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/gradle@main
         if: ${{ inputs.build-tool == 'gradle' }}
         with:
           java-version: ${{ inputs.java-version }}
