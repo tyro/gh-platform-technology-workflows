@@ -19,6 +19,16 @@ on:
         required: false
         type: number
         default: 8.7
+      gradle-module:
+        description: 'Module to generate the dependency diff report for'
+        required: false
+        type: string
+        default: 'app'
+      gradle-configuration:
+        description: 'Classpath to generate the dependency diff report'
+        required: false
+        type: string
+        default: 'devDebugCompileClasspath'
       swift-version:
         description: 'swift version'
         required: false
@@ -41,6 +51,8 @@ jobs:
           java-version: ${{ inputs.java-version }}
           java-distro: ${{ inputs.java-distro }}
           gradle-version: ${{ inputs.gradle-version }}
+          gradle-module: ${{ inputs.gradle-module }}
+          gradle-configuration: ${{ inputs.gradle-configuration }}
           gh-package-user: "${{ secrets.GH_PACKAGE_USER }}"
           gh-package-token: "${{ secrets.GH_PACKAGE_TOKEN }}"
 
@@ -49,7 +61,7 @@ jobs:
         with:
           swift-version: ${{ inputs.swift-version }}
 
-      - name: 'Skipping dependency submission'
+      - name: 'Checking if NPM dependency submission'
         run: echo 'Skipping as transitive dependencies are discoverable out of box'
         if: ${{ inputs.build-tool == 'npm' }}
 
