@@ -29,11 +29,6 @@ on:
         required: false
         type: string
         default: 'devDebugCompileClasspath'
-      swift-version:
-        description: 'swift version'
-        required: false
-        type: string
-        default: 'latest'
 
 permissions:
   contents: write
@@ -58,8 +53,6 @@ jobs:
 
       - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/swift@main
         if: ${{ inputs.build-tool == 'swift' }}
-        with:
-          swift-version: ${{ inputs.swift-version }}
 
       - name: 'Checking if NPM dependency submission'
         run: echo 'Skipping as transitive dependencies are discoverable out of box'
