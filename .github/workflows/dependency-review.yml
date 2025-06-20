@@ -1,4 +1,4 @@
-name: "Dependency Review"
+name: 'Dependency Review'
 on:
   workflow_call:
     inputs:
@@ -8,32 +8,32 @@ on:
       java-version:
         required: false
         type: string
-        default: "17"
+        default: '17'
       java-distro:
-        description: "Java distribution"
+        description: 'Java distribution'
         required: false
         type: string
-        default: "corretto"
+        default: 'corretto'
       gradle-version:
-        description: "Gradle version"
+        description: 'Gradle version'
         required: false
         type: number
         default: 8.7
       gradle-module:
-        description: "Module to generate the dependency diff report for"
+        description: 'Module to generate the dependency diff report for'
         required: false
         type: string
-        default: "app"
+        default: 'app'
       gradle-configuration:
-        description: "Classpath to generate the dependency diff report"
+        description: 'Classpath to generate the dependency diff report'
         required: false
         type: string
-        default: "devDebugCompileClasspath"
+        default: 'devDebugCompileClasspath'
       swift-version:
-        description: "swift version"
+        description: 'swift version'
         required: false
         type: string
-        default: "latest"
+        default: 'latest'
 
 permissions:
   contents: write
@@ -42,7 +42,7 @@ jobs:
   submission:
     runs-on: ubuntu-22.04
     steps:
-      - name: "Checkout Repository"
+      - name: 'Checkout Repository'
         uses: actions/checkout@v4
 
       - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/gradle@main
@@ -53,15 +53,15 @@ jobs:
           gradle-version: ${{ inputs.gradle-version }}
           gradle-module: ${{ inputs.gradle-module }}
           gradle-configuration: ${{ inputs.gradle-configuration }}
-          gh-package-user: "${{ secrets.GH_PACKAGE_USER }}"
-          gh-package-token: "${{ secrets.GH_PACKAGE_TOKEN }}"
+          gh-package-user: '${{ secrets.GH_PACKAGE_USER }}'
+          gh-package-token: '${{ secrets.GH_PACKAGE_TOKEN }}'
 
-      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/swift@update-vapor-swiftly
+      - uses: tyro/gh-platform-technology-workflows/vulnerability-prevention/submission/swift@main
         if: ${{ inputs.build-tool == 'swift' }}
         with:
           swift-version: ${{ inputs.swift-version }}
 
-      - name: "Checking if NPM dependency submission"
+      - name: 'Checking if NPM dependency submission'
         run: echo 'Skipping as transitive dependencies are discoverable out of box'
         if: ${{ inputs.build-tool == 'npm' }}
 
